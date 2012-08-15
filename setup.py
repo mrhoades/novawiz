@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='novawiz',
-    version='0.0.5',
+    version='0.0.7',
     packages=['novawiz',],
     author='tim miller',
     author_email='name@example.com',
@@ -12,5 +12,6 @@ setuptools.setup(
     long_description=open('README').read(),
     entry_points={
       'console_scripts': ['novawiz = novawiz.shell:main']
-    }
+    },
+    install_requires=['python-novaclient']
 )
