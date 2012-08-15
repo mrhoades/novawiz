@@ -34,15 +34,18 @@ def run_cmd(xs):
 
 def boot():
   opts = {
-    'name':   prompt("enter a name for the instance"),
-    'flavor': prompt("enter a flavor name or id from above", "flavor-list"),
-    'image':  prompt("enter an image name or id from above", "image-list"),
-    'key':    prompt("enter a keypair name from above", "keypair-list")
+    'name':     prompt("enter a name for the instance"),
+    'flavor':   prompt("enter a flavor name or id from above", "flavor-list"),
+    'image':    prompt("enter an image name or id from above", "image-list"),
+    'key':      prompt("enter a keypair name from above", "keypair-list"),
+    'secgroup': prompt("enter a security group name", "secgroup-list"),
+    'zone':     prompt("enter an availabilty zone (default az-2)")
   }
+  if len(opts['zone']) == 0: opts['zone'] = "az-2"
   if not confirm(opts):
     print colors.RED + "not confirmed. starting over..." + colors.END + "\n\n"
     return boot()
-  run_cmd(["nova", "boot", "--flavor", opts['flavor'], "--image", opts['image'], "--key_name", opts['key'], opts['name']])
+  run_cmd(["nova", "boot", "--flavor", opts['flavor'], "--image", opts['image'], "--key_name", opts['key'], opts['name'], "--security_groups", opts['secgroup'], "--availability_zone", opts['zone']])
 
 def destroy():
   opts = {'node': prompt("enter the node name or id from above to destroy", "list") }
