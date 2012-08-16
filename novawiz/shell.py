@@ -18,7 +18,7 @@ def prompt(p, nova_cmd=None):
   return res
 
 def show_nova(cmd):
-  print subprocess.check_output(['nova', '--os_region_name', region, cmd])
+  print subprocess.check_output(['nova', cmd])
 
 def confirm(opts, p=None):
   for k in opts.keys():
@@ -45,7 +45,7 @@ def boot():
   if not confirm(opts):
     print colors.RED + "not confirmed. starting over..." + colors.END + "\n\n"
     return boot()
-  run_cmd(["nova", '--os_region_name', region, "boot", "--flavor", opts['flavor'], "--image", opts['image'], "--key_name", opts['key'], opts['name'], "--security_groups", opts['secgroup'], "--availability_zone", opts['zone']])
+  run_cmd(["nova", "boot", "--flavor", opts['flavor'], "--image", opts['image'], "--key_name", opts['key'], opts['name'], "--security_groups", opts['secgroup'], "--availability_zone", opts['zone']])
 
 def destroy():
   opts = {'node': prompt("enter the node name or id from above to destroy", "list") }
@@ -66,14 +66,11 @@ def usage():
   sys.exit(1)
 
 
-region = ''
 
 def main():
   if len(sys.argv) != 2:
     usage()
   cmd = sys.argv[1]
-  region = prompt('enter a region (default az-2.region-a.geo-1)')
-  if len(region) == 0: region = 'az-2.region-a.geo-1'
   if not cmd in commands.keys():
     usage()
   commands[cmd]()
