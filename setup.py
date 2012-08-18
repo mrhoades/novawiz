@@ -2,12 +2,12 @@ import setuptools
 
 setuptools.setup(
     name='novawiz',
-    version='0.0.10',
+    version='0.0.11',
     packages=['novawiz',],
     author='tim miller',
     author_email='name@example.com',
     url='github.com/echohead/novawiz',
-    license='Do What The Fuck You Want To Public License',
+    license='',
     description="a command-line wizard for nova",
     long_description=open('README').read(),
     entry_points={
