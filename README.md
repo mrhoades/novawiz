@@ -14,7 +14,7 @@ Usage:
 
 Development:
 
-  * to install to localhost: ``python setup.py install`
+  * to install to localhost: `python setup.py install`
 
   * to release a new verison to pypi:
     * bump version in setup.py
