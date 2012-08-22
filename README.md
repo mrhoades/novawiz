@@ -8,3 +8,5 @@ Usage:
   * `novawiz boot` - create an instance
 
   * `novawiz destroy` - destroy an instance
+
+  * `novawiz image-build` - build a Glance image
