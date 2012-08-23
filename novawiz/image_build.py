@@ -63,7 +63,7 @@ class ImageBuild(CommandBase):
     nova.build_image(s, self.opts.name)
 
     log("destroying build node")
-    nova.delete_keypair(key_name)
+    nova.delete_key(key_name)
     log("destroying temp keypair")
     os.remove(key_file)
     nova.delete_server(s)
