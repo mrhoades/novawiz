@@ -7,6 +7,8 @@ class colors:
   END = '\033[0m'
 
 
+def log(msg):
+  print msg
 
 def prompt(p, nova_cmd=None):
   if nova_cmd: show_nova(nova_cmd)
