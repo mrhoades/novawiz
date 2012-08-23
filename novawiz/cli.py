@@ -1,4 +1,5 @@
 import subprocess
+import sys
 
 class colors:
   OK     = '\033[92m'
@@ -9,6 +10,7 @@ class colors:
 
 def log(msg):
   print msg
+  sys.stdout.flush()
 
 def prompt(p, nova_cmd=None):
   if nova_cmd: show_nova(nova_cmd)

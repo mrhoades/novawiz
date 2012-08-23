@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name='novawiz',
-    version='0.0.11',
+    version='0.0.12',
     packages=['novawiz',],
     author='tim miller',
     author_email='name@example.com',

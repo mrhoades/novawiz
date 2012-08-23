@@ -38,12 +38,12 @@ class Nova:
 
 
   def wait_for_image(self, image_name):
-    i = image_by_name(image_name)
+    i = self.image_by_name(image_name)
     if not i: raise Exception('image was not saved')
     while re.match('SAVING', i.status):
       print('.'),
       time.sleep(1)
-      i = image_by_name(image_name)
+      i = self.image_by_name(image_name)
     print ''
     if not re.match('ACTIVE', i.status): raise Exception('failed to create image')
 
@@ -71,8 +71,23 @@ class Nova:
   def public_ip(self, server):
     return server.addresses['private'][1]['addr']
 
-  def scp(ip, user, key_file, src, dest):
-    raise Exception("SCP TODO")
+  def scp(self, ip, user, key_file, src, dest):
+    cmd = "scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i {0} ".format(key_file)
+    cmd = cmd + src + " " + user + "@" + ip + ":" + dest
+    print "Running \"{0}\"".format(cmd)
+    o = open('/dev/null', 'w')
+    i = open('/dev/null', 'r')
+    subprocess.call(cmd, shell=True, stdout=o, stderr=o, stdin=i)
+    o.close()
+    i.close()
+
+  def delete_server(self, server):
+    server.delete()
+
+  def delete_key(self, name):
+    kpmgr = nc.keypairs.KeypairManager(self.nova)
+    k = [ k for k in kpmgr.list() if k.name == name ][0]
+    k.delete()
 
   def create_key(self, name):
     key_file = "/tmp/{0}.pem".format(name)
@@ -83,6 +98,7 @@ class Nova:
     f.write(keypair.private_key)
     f.close()
     os.chmod(key_file, 0600)
+    return key_file
 
   def run_cmd(self, host, key_file, cmd, expect_status=0):
     """
