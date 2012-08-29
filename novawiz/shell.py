@@ -1,6 +1,8 @@
+import signal
 import sys
 import subprocess
 
+from cli import *
 from command_base import BadArgs
 from boot import Boot
 from delete import Delete
@@ -45,5 +47,9 @@ def main():
     exit(1)
   cmd.run()
 
-if __name__ == "__main__":
+try:
   main()
+  exit(0)
+except KeyboardInterrupt:
+  print "\n\n" + colors.RED + "<exiting>" + colors.END
+  exit(1)
