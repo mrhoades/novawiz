@@ -13,5 +13,5 @@ setuptools.setup(
     entry_points={
       'console_scripts': ['novawiz = novawiz.shell:main']
     },
-    install_requires=['python-novaclient', 'paramiko']
+    install_requires=['python-novaclient>=2012.2', 'paramiko']
 )
